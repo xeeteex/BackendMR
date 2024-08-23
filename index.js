@@ -1,16 +1,17 @@
 import express from "express";
+import morgan from "morgan";
+import { userRouter } from "./routes/userRoutes.js";
 
 const app = express();
-
 const port = 5000;
 
-const numbers = [11, 22, 33, 44, 55, 66];
+app.use(morgan("dev")); //by default next huncha morgan le
 
 app.get("/", (req, res) => {
-  const total = numbers.reduce((a, b) => a + b);
-  return res.status(200).json({ data: "lios", total });
+  return res.status(200).json({ message: "welcome to servr" });
 });
-//postman ma body ma poathauda double quote nai
+
+app.use("/api/users", userRouter);
 
 app.listen(port, () => {
   console.log("connected");
